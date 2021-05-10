@@ -12,17 +12,17 @@ namespace WishList.Models.AccountViewModels
     {
         [Required]
         [EmailAddress]
-        String email { get; set; };
+        public String Email { get; set; };
 
         [Required]
         [StringLength(100, MinimumLength = 8)]
         [DataType(DataType.Password)]
-        String Password { get; set; }
+        public String Password { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         [Compare("Password")]
-        String ConfirmPassword { get; set; }
+        public String ConfirmPassword { get; set; }
 
     }
 }

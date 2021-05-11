@@ -25,24 +25,33 @@ namespace WishList.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Register()
+        public IActionResult Register()
         {
             return View("Register");
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register(RegisterViewModel rvm)
+        public IActionResult Register(RegisterViewModel model)
 
         {
-            if (ModelState.IsValid)
+
+
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var result = _userManager.CreateAsync(new ApplicationUser() { Email = model.Email, UserName = model.Email }, model.Password).Result;
+
+            if (!result.Succeeded)
             {
-                return RedirectToAction("HomeController.Index");
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("Password", error.Description);
+                }
+                return View(model);
             }
-            else
-            {
-                return View(rvm);
-            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         

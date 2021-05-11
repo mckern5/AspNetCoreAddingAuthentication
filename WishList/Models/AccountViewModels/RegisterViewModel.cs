@@ -12,7 +12,7 @@ namespace WishList.Models.AccountViewModels
     {
         [Required]
         [EmailAddress]
-        public String Email { get; set; };
+        public String Email { get; set; }
 
         [Required]
         [StringLength(100, MinimumLength = 8)]
